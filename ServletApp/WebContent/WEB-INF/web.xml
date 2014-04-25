@@ -19,4 +19,24 @@
   	<servlet-name>info</servlet-name>
   	<url-pattern>/reqInfo.do</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>cook</servlet-name>
+  	<servlet-class>myservlet.test.CookieServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>cook</servlet-name>
+  	<url-pattern>/cook.action</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+  	<servlet-name>ss</servlet-name>
+  	<servlet-class>myservlet.test.SessionServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>ss</servlet-name>
+  	<url-pattern>/ss.action</url-pattern>
+  </servlet-mapping>
 </web-app>
