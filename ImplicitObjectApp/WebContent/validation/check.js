@@ -39,5 +39,36 @@ function isId(obj){
 	return true;
 }
 
+/*
+	이메일 검사
+	@, .이 있는지 검사
+*/
+function isEmail(obj){
+	var data = obj.value;
+	
+	if(data == "")
+		return false;
+		
+	var i = data.indexOf("@");
+	if(i < 0){
+		return false;
+	}
+	
+	var i = data.indexOf(".");
+	if(i < 0){
+		return false;
+	}
+	
+	return true;
+}
+
+
+
+
+
+
+
+
+
 
 
