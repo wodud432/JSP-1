@@ -21,6 +21,18 @@
 			return false;
 		}
 		
+		if(!isSame(obj.pw1, obj.pw2)){
+			alert("패스워드가 같지 않습니다.");
+			return false;
+		}
+		/*
+			과제
+			1. 패스워드의 길이는 반드시 4글자 이상으로 한다.
+				isShort()
+			2. 패스워드는 반드시 문자와 숫자를 혼용하게 한다.
+				isAlphaNum()
+		*/
+		
 		return true;
 	}
 </script>

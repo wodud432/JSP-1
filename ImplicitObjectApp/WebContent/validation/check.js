@@ -62,6 +62,22 @@ function isEmail(obj){
 	return true;
 }
 
+/*
+	패스워드와 패스워드 확인 검사
+*/
+function isSame(obj1, obj2){
+	var val1 = obj1.value;
+	var val2 = obj2.value;
+	
+	if(val1.length == 0 || val2.length == 0)
+		return false;
+		
+	if(val1 == val2)
+		return true;
+		
+	return false;
+}
+
 
 
 
