@@ -4,9 +4,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR" />
 <title>requestScope.jsp</title>
+<%
+	request.setCharacterEncoding("euc-kr");
+%>
 <jsp:useBean id="req" class="mybean.scope.RequestBean" scope="request">
-	<jsp:setProperty name="req" property="header" />
-	<jsp:setProperty name="req" property="footer" />
+	<jsp:setProperty name="req" property="header" param="header" />
+	<jsp:setProperty name="req" property="footer" param="footer"/>	
 </jsp:useBean>
 </head>
 <body> 
