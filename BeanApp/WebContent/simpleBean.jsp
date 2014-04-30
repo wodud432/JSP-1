@@ -9,5 +9,16 @@
 <jsp:useBean id="s1" class="mybean.SimpleBean" />
 <jsp:setProperty property="message" name="s1" value="정말 간단한 빈"/>
 Message : <jsp:getProperty property="message" name="s1"/>
+<hr/>
+<%
+	mybean.SimpleBean s2 = new mybean.SimpleBean();
+	s2.setMessage("스크립트릿을 이용한 메서드 호출");
+	s1.setMessage("action tag로 만든 인스턴스로 호출");
+%>
+Message : <%=s2.getMessage() %><br/>
+Message : <%=s1.getMessage() %>
 </body>
 </html>
+
+
+
