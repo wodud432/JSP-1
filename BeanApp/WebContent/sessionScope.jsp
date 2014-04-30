@@ -16,7 +16,7 @@ bean의 property를 마지막으로 접근한 뒤에 경과한 시간은
 <jsp:getProperty property="elapsedTimeAfterLastAccess" name="timer"/>
 초 입니다.<br/><br/>
 
-<jsp:setProperty property="restart" name="timer"/>
+<jsp:setProperty property="restart" name="timer" param="restart"/>
 
 타이머 리셋한 뒤에 경과된 시간은
 <jsp:getProperty property="elapsedTime" name="timer"/><br/><br/>
