@@ -1,5 +1,6 @@
 package mybean.index;
 
+import java.util.List;
 import java.util.ArrayList;
 
 public class ParkingBean {
@@ -11,7 +12,14 @@ public class ParkingBean {
 	}
 	
 	public void setExit(String plateNumber){
-		
+		CarDto dto;
+		for(int i=0; i<list.size(); i++){
+			dto = (CarDto)list.get(i);
+			if(plateNumber.equals(dto.getPlateNumber())){
+				list.remove(i);
+				break;
+			}
+		}
 	}
 	
 	public int	getTotal(){
@@ -22,6 +30,7 @@ public class ParkingBean {
 		return null;
 	}
 	
+	/*
 	public CarDto[] getCarDto(){
 		CarDto[] cars = new CarDto[list.size()];
 		for(int i=0; i<cars.length; i++){
@@ -29,5 +38,10 @@ public class ParkingBean {
 		}
 		
 		return cars;
+	}
+	*/
+	
+	public List getCarDto(){
+		return list;
 	}
 }

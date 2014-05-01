@@ -1,3 +1,4 @@
+<%@page import="java.util.List"%>
 <%@page import="mybean.index.CarDto"%>
 <%@ page contentType="text/html; charset=EUC-KR"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -32,10 +33,17 @@
 		<th>차량 번호</th><th>입차 시간</th>
 	</tr>
 <%
-	CarDto[] cars = parking.getCarDto();
+	/*
+	CarDto[] cars = parking.getCarDto(); 
 	for(int i=0; i<cars.length; i++){
-		//car = cars[i];
-		pageContext.setAttribute("car", cars[i]);
+		car = cars[i];
+		//pageContext.setAttribute("car", cars[i]);
+	*/
+	
+	List cars = parking.getCarDto();
+	for(int i=0; i<cars.size(); i++){
+		CarDto dto = (CarDto)cars.get(i);
+		pageContext.setAttribute("car", dto);
 %>
 	<tr>
 		<td><jsp:getProperty property="plateNumber" name="car"/></td>
