@@ -7,8 +7,9 @@
 </head>
 <body>
 <h1>카운터 예제(총 방문자 수)</h1>
-<jsp:useBean id="counter" class="mybean.scope.ApplicationBean" />
+<jsp:useBean id="counter" class="mybean.scope.ApplicationBean" scope="application" > 
 <jsp:setProperty property="newVisit" name="counter" value="1"/>
+</jsp:useBean>
 <jsp:setProperty property="restart" name="counter"/>
 
 <h2>당신은 이 페이지에 

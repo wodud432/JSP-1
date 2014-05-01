@@ -1,3 +1,4 @@
+<%@page import="mybean.index.CarDto"%>
 <%@ page contentType="text/html; charset=EUC-KR"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -7,9 +8,9 @@
 </head>
 <body>
 <jsp:useBean id="car" class="mybean.index.CarDto" /> 
-<jsp:useBean id="parking" class="mybean.index.ParkingBean" />
+<jsp:useBean id="parking" class="mybean.index.ParkingBean" scope="application"/>
 
-<jsp:setProperty property="enter" name="parking"/>
+<jsp:setProperty property="enter" name="parking" param="enter"/>
 <jsp:setProperty property="exit" name="parking"/>
 
 <h1>주차 관리 프로그램</h1>
@@ -30,9 +31,22 @@
 	<tr>
 		<th>차량 번호</th><th>입차 시간</th>
 	</tr>
+<%
+	CarDto[] cars = parking.getCarDto();
+	for(int i=0; i<cars.length; i++){
+		//car = cars[i];
+		pageContext.setAttribute("car", cars[i]);
+%>
+	<tr>
+		<td><jsp:getProperty property="plateNumber" name="car"/></td>
+		<td><jsp:getProperty property="parkingTime" name="car"/></td>
+	</tr>
+<%
+	}
+%>
 </table>
 <br/>
-총 주차대수 : 대
+총 주차대수 : <jsp:getProperty property="total" name="parking"/>대
 </body>
 </html>
 <!-- 
