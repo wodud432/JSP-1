@@ -11,8 +11,8 @@
 <a href="addSawon.html">사원 추가</a><br/><br/>
 <table border="1">
 	<tr>
-		<th>ID</th><th>이름</th><th>패스워드</th><th>나이</th>
-		<th>근무지</th><th>주소<th>부서명</th><th>내선번호</th>
+		<th>사번</th><th>ID</th><th>이름</th><th>패스워드</th><th>나이</th>
+		<th>근무지</th><th>부서명</th><th>내선번호</th>
 	</tr>
 <%
 	Connection con = null;
