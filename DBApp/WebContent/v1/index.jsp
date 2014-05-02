@@ -13,6 +13,7 @@
 	<tr>
 		<th>사번</th><th>ID</th><th>이름</th><th>패스워드</th><th>나이</th>
 		<th>근무지</th><th>부서명</th><th>내선번호</th>
+		<th>수정</th><th>삭제</th>
 	</tr>
 <%
 	Connection con = null;
@@ -44,6 +45,8 @@
 		<td><%=s_no%></td> <td><%=s_id%></td> <td><%=s_name%></td>
 		<td><%=s_pw%></td> <td><%=s_age%></td> <td><%=s_addr%></td>
 		<td><%=s_dept%></td> <td><%=s_ext%></td> 
+		<td><a href="editSawon.jsp?no=<%=s_no%>">수정</a></td>
+		<td><a href="deleteSawon.jsp?no=<%=s_no%>">삭제</a></td>
 	</tr>
 <%
 		}
