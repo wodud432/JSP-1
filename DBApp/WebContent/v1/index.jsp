@@ -5,6 +5,14 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR" />
 <title>Insert title here</title>
+<script type="text/javascript">
+	function delCheck(no){
+		var result = confirm("정말 삭제하시겠습니까?");
+		if(result == true){
+			location.href="deleteSawon.jsp?no=" + no;
+		}
+	}
+</script>
 </head>
 <body>
 <h1>직원 정보 리스트</h1>
@@ -46,7 +54,7 @@
 		<td><%=s_pw%></td> <td><%=s_age%></td> <td><%=s_addr%></td>
 		<td><%=s_dept%></td> <td><%=s_ext%></td> 
 		<td><a href="editSawon.jsp?no=<%=s_no%>">수정</a></td>
-		<td><a href="deleteSawon.jsp?no=<%=s_no%>">삭제</a></td>
+		<td><a href="javascript:delCheck(<%=s_no%>)">삭제</a></td>
 	</tr>
 <%
 		}
