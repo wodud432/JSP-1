@@ -53,6 +53,7 @@
 %>
 <h1>사원 정보 수정</h1>
 <form method="post" action="editSawon_proc.jsp">
+<input type="hidden" name="no" value="<%=no%>" />
 <table border="1">
 	<tr>
 		<td>아이디 : </td> <td><input type="text" name="s_id" value="<%=s_id%>"/></td>
@@ -70,10 +71,10 @@
 		<td>근무지 : </td> 
 		<td>
 			<select name="s_addr">
-				<option value="서울">서울</option>
-				<option value="광주">광주</option>
-				<option value="부산">부산</option>
-				<option value="경기">경기</option>
+				<option value="서울" <%if(s_addr.equals("서울")){%> selected="true" <%}%>>서울</option>
+				<option value="광주" <%if(s_addr.equals("광주")){%> selected="true" <%}%>>광주</option>
+				<option value="부산" <%if(s_addr.equals("부산")){%> selected="true" <%}%>>부산</option>
+				<option value="경기" <%if(s_addr.equals("경기")){%> selected="true" <%}%>>경기</option>
 			</select>
 		</td>
 	</tr>
@@ -84,9 +85,9 @@
 		<td>부서명 : </td> 
 		<td>
 			<select name="s_dept">
-				<option value="영업">영업</option>
-				<option value="기술">기술</option>
-				<option value="기획">기획</option>
+				<option value="영업" <%if(s_dept.equals("영업")){%> selected="true" <%}%>>영업</option>
+				<option value="기술" <%if(s_dept.equals("기술")){%> selected="true" <%}%>>기술</option>
+				<option value="기획" <%if(s_dept.equals("기획")){%> selected="true" <%}%>>기획</option>
 			</select>
 		</td>
 	</tr>
