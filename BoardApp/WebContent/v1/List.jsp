@@ -1,3 +1,5 @@
+<%@page import="mybean.board.BoardDto"%>
+<%@page import="java.util.Vector"%>
 <%@ page contentType="text/html;charset=euc-kr" %>
 <HTML>
 <link href="style.css" rel="stylesheet" type="text/css">
@@ -10,14 +12,31 @@
 		}
 		document.search.submit();
 	}
+	
+	function list(){
+		document.list.action="List.jsp";
+		document.list.submit();
+	}
 </script>
 <BODY>
 <center><br>
 <h2>JSP Board</h2>
-
+<jsp:useBean id="dao" class="mybean.board.BoardDao" />
+<%
+	String keyField = request.getParameter("keyField");
+	String keyWord = request.getParameter("keyWord");
+	
+	if(request.getParameter("reload") != null){
+		if(request.getParameter("reload").equals("true")){
+			keyWord = "";
+		}
+	}
+	
+	Vector list = dao.getBoardList(keyField, keyWord);
+%>
 <table align=center border=0 width=80%>
 <tr>
-	<td align=left>Total :  Articles(
+	<td align=left>Total :  <%=list.size()%> Articles(
 		<font color=red>  1 / 10 Pages </font>)
 	</td>
 </tr>
@@ -28,18 +47,35 @@
 	<td align=center colspan=2>
 		<table border=0 width=100% cellpadding=2 cellspacing=0>
 			<tr align=center bgcolor=#D0D0D0 height=120%>
-				<td> 번호 </td>
-				<td> 제목 </td>
-				<td> 이름 </td>
-				<td> 날짜 </td>
-				<td> 조회수 </td>
+				<td width="10%"> 번호 </td>
+				<td widht="40%"> 제목 </td>
+				<td width="20%"> 이름 </td>
+				<td width="20%"> 날짜 </td>
+				<td width="10%"> 조회수 </td>
+			</tr>		
+			<% if(list.isEmpty()){ %>
+					<b>등록된 글이 없습니다.</b>
+			<%
+				}
+				else{
+					for(int i=0; i<list.size(); i++){
+						BoardDto dto = (BoardDto)list.get(i);
+			%>
+			<tr>
+				<td><%=dto.getNum()%></td>
+				<td><%=dto.getSubject()%></td>
+				<td><%=dto.getName()%></td>
+				<td><%=dto.getRegdate()%></td>
+				<td><%=dto.getCount()%></td>
 			</tr>
+			<%
+					}
+				}
+			%>
 		</table>
 	</td>
 </tr>
-<tr>
-	<td><BR><BR></td>
-</tr>
+<tr><td></td></tr>
 <tr>
 	<td align="left">Go to Page </td>
 	<td align=right>
@@ -65,6 +101,9 @@
 		</td>
 	</tr>
 	</table>
+</form>
+<form name="list" method="post">
+	<input type="hidden" name="reload" value="true" />
 </form>
 </center>	
 </BODY>

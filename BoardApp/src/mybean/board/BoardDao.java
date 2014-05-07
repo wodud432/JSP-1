@@ -38,11 +38,11 @@ public class BoardDao {
 		try{
 			con = ds.getConnection();
 			if(keyWord == null || keyWord.isEmpty()){
-				sql = "select * from tblBoard";
+				sql = "select * from tblBoard order by num desc";
 			}
 			else{
 				sql = "select * from tblBoard where " + keyField + 
-					" like '%" + keyWord + "%'";
+					" like '%" + keyWord + "%' order by num desc";
 			}
 			
 			stmt = con.prepareStatement(sql);
@@ -74,5 +74,32 @@ public class BoardDao {
 		}
 		
 		return v;
+	}
+	
+	// 글 저장하기
+	public void insertBoard(BoardDto dto){
+		String sql = "insert into tblBoard(num, name, email, homepage,"
+			+ "subject, content, pos, depth, regdate, pass, count, ip) "
+			+ "values(seq_num.nextVal, ?,?,?,?,?,0,0,sysdate,?,0,?)";
+		
+		try{
+			con = ds.getConnection();
+			stmt = con.prepareStatement(sql);
+			stmt.setString(1, dto.getName());
+			stmt.setString(2, dto.getEmail());
+			stmt.setString(3, dto.getHomepage());
+			stmt.setString(4, dto.getSubject());
+			stmt.setString(5, dto.getContent());
+			stmt.setString(6, dto.getPass());
+			stmt.setString(7, dto.getIp());
+			
+			stmt.executeUpdate();
+		}
+		catch(Exception err){
+			System.out.println("insertBoard : " + err);
+		}
+		finally{
+			freeCon();
+		}
 	}
 }

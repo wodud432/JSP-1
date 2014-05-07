@@ -21,3 +21,5 @@ insert into TBLBOARD values(seq_num.nextVal, 'aaa', 'aaa', 'aaa',
 
 insert into TBLBOARD values(seq_num.nextVal, 'bbb', 'bbb', 'bbb', 
 'bbb', 'bbb', 'bbb', 0, 'bbb', sysdate, 0, 0);
+
+select * from tblboard;
