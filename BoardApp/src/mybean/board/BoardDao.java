@@ -37,7 +37,7 @@ public class BoardDao {
 		String sql;
 		try{
 			con = ds.getConnection();
-			if(keyWord == null || keyWord.isEmpty()){
+			if(keyWord == null || keyWord.isEmpty() || keyWord.equals("null")){
 				sql = "select * from tblBoard order by num desc";
 			}
 			else{
