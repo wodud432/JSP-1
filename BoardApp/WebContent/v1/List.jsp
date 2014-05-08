@@ -17,14 +17,30 @@
 		document.list.action="List.jsp";
 		document.list.submit();
 	}
+	
+	function read(param){
+		document.read.num.value=param;
+		document.read.submit();
+	}
 </script>
 <BODY>
 <center><br>
 <h2>JSP Board</h2>
 <jsp:useBean id="dao" class="mybean.board.BoardDao" />
+<%!
+	public String getParam(HttpServletRequest req, String pName){
+		if(req.getParameter("keyWord") != null)
+			return req.getParameter("keyWord");
+		else
+			return "";
+	}
+%>
 <%
 	String keyField = request.getParameter("keyField");
 	String keyWord = request.getParameter("keyWord");
+	
+	if(keyField == null)
+		keyField = "name"; 
 	
 	if(request.getParameter("reload") != null){
 		if(request.getParameter("reload").equals("true")){
@@ -63,8 +79,8 @@
 			%>
 			<tr>
 				<td><%=dto.getNum()%></td>
-				<td><%=dto.getSubject()%></td>
-				<td><%=dto.getName()%></td>
+				<td><a href="javascript:read('<%=dto.getNum()%>')"><%=dto.getSubject()%></a></td>
+				<td><a href="mailto:<%=dto.getEmail()%>"><%=dto.getName()%></a></td>
 				<td><%=dto.getRegdate()%></td>
 				<td><%=dto.getCount()%></td>
 			</tr>
@@ -90,12 +106,12 @@
 	<tr>
 		<td align=center valign=bottom>
 			<select name="keyField" size="1">
-				<option value="name"> 이름
-				<option value="subject"> 제목
-				<option value="content"> 내용
+				<option value="name" <% if(keyField.equals("name")) { %> selected <%} %>> 이름
+				<option value="subject" <% if(keyField.equals("subject")) { %> selected <%} %>> 제목
+				<option value="content" <% if(keyField.equals("content")) { %> selected <%} %>> 내용
 			</select>
 
-			<input type="text" size="16" name="keyWord" >
+			<input type="text" size="16" name="keyWord" value='<%=getParam(request, "keyWord")%>'>
 			<input type="button" value="찾기" onClick="check()">
 			<input type="hidden" name="page" value= "0">
 		</td>
@@ -104,6 +120,12 @@
 </form>
 <form name="list" method="post">
 	<input type="hidden" name="reload" value="true" />
+</form>
+
+<form name="read" method="post" action="Read.jsp">
+	<input type="hidden" name="num" />
+	<input type="hidden" name="keyField" value="<%=keyField%>"/>
+	<input type="hidden" name="keyWord" value="<%=keyWord%>"/>
 </form>
 </center>	
 </BODY>

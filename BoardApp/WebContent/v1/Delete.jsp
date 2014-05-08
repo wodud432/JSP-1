@@ -1,5 +1,26 @@
+<%@page import="mybean.board.BoardDto"%>
 <%@ page contentType="text/html; charset=EUC-KR" %>
+<jsp:useBean id="dao" class="mybean.board.BoardDao" />
+<%
+	int num = Integer.parseInt(request.getParameter("num"));
+	String pass1 = request.getParameter("pass");
+	BoardDto dto = dao.getBoard(num);
 
+	if(pass1 != null){
+		if(pass1.equals(dto.getPass())){
+			dao.deleteBoard(num);
+			response.sendRedirect("List.jsp");
+		}
+		else{
+%>
+		<script>
+			alert("패스워드가 틀립니다.");
+			history.back();
+		</script>
+<%
+		}
+	}
+%>
 <html>
 <head><title>JSPBoard</title>
 <link href="style.css" rel="stylesheet" type="text/css">
@@ -25,6 +46,7 @@
 </table>
 <table width=70% cellspacing=0 cellpadding=2>
 <form name=form method=post action="Delete.jsp" >
+<input type="hidden" name="num" value="<%=num%>" />
  <tr>
   <td align=center>
    <table align=center border=0 width=91%>

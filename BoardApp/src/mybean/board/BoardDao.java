@@ -102,4 +102,85 @@ public class BoardDao {
 			freeCon();
 		}
 	}
+	
+	// 글 내용 보기(read.jsp, update.jsp)
+	public BoardDto getBoard(int num){
+		BoardDto dto = new BoardDto();
+		String sql = "";
+		try{
+			con = ds.getConnection();
+			
+			sql = "update tblboard set count=count+1 where num=?";
+			stmt = con.prepareStatement(sql);
+			stmt.setInt(1, num);
+			stmt.executeUpdate();
+			
+			sql = "select * from tblboard where num=?";
+			stmt = con.prepareStatement(sql);
+			stmt.setInt(1, num);
+			rs = stmt.executeQuery();
+			if(rs.next()){
+				dto.setContent(rs.getString("content"));
+				dto.setCount(rs.getInt("count"));
+				dto.setDepth(rs.getInt("depth"));
+				dto.setEmail(rs.getString("email"));
+				dto.setHomepage(rs.getString("homepage"));
+				dto.setIp(rs.getString("ip"));
+				dto.setName(rs.getString("name"));
+				dto.setNum(rs.getInt("num"));
+				dto.setPass(rs.getString("pass"));
+				dto.setPos(rs.getInt("pos"));
+				dto.setRegdate(rs.getString("regdate"));
+				dto.setSubject(rs.getString("subject"));
+			}
+		}
+		catch(Exception err){
+			System.out.println("getBoard : " + err);
+		}
+		finally{
+			freeCon();
+		}
+		
+		return dto;
+	}
+	
+	// 글 수정(UpdateProc.jsp)
+	public void updateBoard(BoardDto dto){
+		try{
+			String sql = "update tblboard set name=?, email=?, " +
+				"subject=?, content=? where num=?";
+			con = ds.getConnection();
+			stmt = con.prepareStatement(sql);
+			stmt.setString(1, dto.getName());
+			stmt.setString(2, dto.getEmail());
+			stmt.setString(3, dto.getSubject());
+			stmt.setString(4, dto.getContent());
+			stmt.setInt(5, dto.getNum());
+			
+			stmt.executeUpdate();
+		}
+		catch(Exception err){
+			System.out.println("updateBoard : " + err);
+		}
+		finally{
+			freeCon();
+		}
+	}
+	
+	// 글 삭제
+	public void deleteBoard(int num){
+		try{
+			String sql = "delete from tblboard where num=?";
+			con = ds.getConnection();
+			stmt = con.prepareStatement(sql);
+			stmt.setInt(1, num);
+			stmt.executeUpdate();
+		}
+		catch(Exception err){
+			System.out.println("deleteBoard : " + err);
+		}
+		finally{
+			freeCon();
+		}
+	}
 }
