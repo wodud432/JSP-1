@@ -38,11 +38,11 @@ public class BoardDao {
 		try{
 			con = ds.getConnection();
 			if(keyWord == null || keyWord.isEmpty() || keyWord.equals("null")){
-				sql = "select * from tblBoard order by num desc";
+				sql = "select * from tblBoard order by pos";
 			}
 			else{
 				sql = "select * from tblBoard where " + keyField + 
-					" like '%" + keyWord + "%' order by num desc";
+					" like '%" + keyWord + "%' order by pos";
 			}
 			
 			stmt = con.prepareStatement(sql);
@@ -77,6 +77,15 @@ public class BoardDao {
 	}
 	
 	// 글 저장하기
+	public void updatePos(Connection con){
+		try{
+			String sql = "update tblBoard set pos = pos+1";
+			stmt = con.prepareStatement(sql);
+			stmt.executeUpdate();
+		}
+		catch(Exception err){ System.out.println("updatePos : " + err); }
+	}
+	
 	public void insertBoard(BoardDto dto){
 		String sql = "insert into tblBoard(num, name, email, homepage,"
 			+ "subject, content, pos, depth, regdate, pass, count, ip) "
@@ -84,6 +93,7 @@ public class BoardDao {
 		
 		try{
 			con = ds.getConnection();
+			updatePos(con);
 			stmt = con.prepareStatement(sql);
 			stmt.setString(1, dto.getName());
 			stmt.setString(2, dto.getEmail());
@@ -183,4 +193,60 @@ public class BoardDao {
 			freeCon();
 		}
 	}
+	
+	// 답변 달기
+	public void replyUpdatePos(BoardDto dto){
+		try{
+			String sql = "update tblboard set pos=pos+1 where pos>?";
+			con = ds.getConnection();
+			stmt = con.prepareStatement(sql);
+			stmt.setInt(1, dto.getPos());
+			stmt.executeUpdate();
+		}
+		catch(Exception err){
+			System.out.println("replyUpdatePos : " + err);
+		}
+		finally{
+			freeCon();
+		}
+	}
+	
+	public void replyBoard(BoardDto dto){
+		try{
+			String sql = "insert into tblBoard(num, name, email, homepage,"
+					+ "subject, content, pos, depth, regdate, pass, count, ip) "
+					+ "values(seq_num.nextVal, ?,?,?,?,?,?,?,sysdate,?,0,?)";
+			con = ds.getConnection();
+			stmt = con.prepareStatement(sql);
+			stmt.setString(1, dto.getName());
+			stmt.setString(2, dto.getEmail());
+			stmt.setString(3, dto.getHomepage());
+			stmt.setString(4, dto.getSubject());
+			stmt.setString(5, dto.getContent());
+			stmt.setInt(6, dto.getPos()+1);
+			stmt.setInt(7, dto.getDepth()+1);
+			stmt.setString(8, dto.getPass());
+			stmt.setString(9, dto.getIp());
+			
+			stmt.executeUpdate();                                            
+		}
+		catch(Exception err){
+			System.out.println("replyBoard : " + err);
+		}
+		finally{
+			freeCon();
+		}
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
