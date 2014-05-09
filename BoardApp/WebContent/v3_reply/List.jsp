@@ -39,7 +39,7 @@
 
 	// paging에 필요한 변수들
 	int totalRecord = 0; // 전체 글의 갯수
-	int numPerPage = 5; // 한 페이지당 보여질 글의 갯수
+	int numPerPage = 10; // 한 페이지당 보여질 글의 갯수
 	int pagePerBlock = 3; // 한 블럭당 페이지 수
 	int totalPage = 0; // 전체 페이지 수
 	int totalBlock = 0; // 전체 블럭 수
@@ -108,7 +108,13 @@
 			%>
 			<tr>
 				<td><%=dto.getNum()%></td>
-				<td><a href="javascript:read('<%=dto.getNum()%>')"><%=dto.getSubject()%></a></td>
+				<td>
+					<%=dao.useDepth(dto.getDepth()) %>
+					<% if(dto.getDepth() > 0){ %>
+						<img alt="" src="../image/re.gif">
+					<% } %>
+					<a href="javascript:read('<%=dto.getNum()%>')"><%=dto.getSubject()%></a>
+				</td>
 				<td><a href="mailto:<%=dto.getEmail()%>"><%=dto.getName()%></a></td>
 				<td><%=dto.getRegdate()%></td>
 				<td><%=dto.getCount()%></td>

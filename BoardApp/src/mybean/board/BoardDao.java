@@ -237,6 +237,16 @@ public class BoardDao {
 			freeCon();
 		}
 	}
+	
+	// 들여 쓰기
+	public String useDepth(int depth){
+		String result = "";
+		for(int i=0; i<depth*3; i++){
+			result += "&nbsp;";
+		}
+		
+		return result;
+	}
 }
 
 
