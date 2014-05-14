@@ -87,6 +87,63 @@ insert into REPLYTEST values(6, 'bbb_b', 4, 1);
 
 select * from REPLYTEST order by pos;
 
+-- 자료실
+/*
+CREATE TABLE tblPds(
+	num			number,				-- 글번호
+	name		varchar2(20),		-- 작성자
+	email		varchar2(50),		
+	homepage	varchar2(50),
+	subject		varchar2(50),		-- 글 제목
+	content		varchar2(4000),		-- 글 내용
+	pass		varchar2(10),		
+	count		number,				-- 조회수
+	ip			varchar2(50),		-- 작성자 ip주소
+	regdate		date,				-- 등록일
+	pos			number,				-- 답변의 위치
+	depth		number,				-- 답변의 레벨
+	file1		varchar2(50),
+	file2		varchar2(50),	
+	file3		varchar2(50),	
+	constraint pk_num	primary key(num)
+);
+*/
+
+CREATE TABLE tblPds(
+	num			number,				-- 글번호
+	name		varchar2(20),		-- 작성자
+	email		varchar2(50),		
+	homepage	varchar2(50),
+	subject		varchar2(50),		-- 글 제목
+	content		varchar2(4000),		-- 글 내용
+	pass		varchar2(10),		
+	count		number,				-- 조회수
+	ip			varchar2(50),		-- 작성자 ip주소
+	regdate		date,				-- 등록일
+	pos			number,				-- 답변의 위치
+	depth		number,				-- 답변의 레벨
+	constraint pk_num	primary key(num)
+);
+
+CREATE TABLE tblAttachFile(
+	fileId		number,
+	num			number, -- 자료실의 글번호
+	filePath	varchar2(50),
+	constraint pk_fileId primary key(fileId)
+);
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
