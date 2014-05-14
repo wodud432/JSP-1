@@ -26,21 +26,29 @@ public class BookController extends HttpServlet {
 		HttpSession session = req.getSession();
 		
 		Vector bookList = (Vector)session.getAttribute("cart");
-		if(cmd.equals("ADD")){
-			if(bookList == null){
-				bookList = new Vector();
+		if(cmd.equals("CHK")){
+			RequestDispatcher view = 
+					req.getRequestDispatcher("/exam2/checkout.jsp");
+			view.forward(req, resp);
+		}
+		else{
+			if(cmd.equals("ADD")){
+				if(bookList == null){
+					bookList = new Vector();
+				}
+				
+				bookList.add(getBook(req));
+			}
+			else if(cmd.equals("DEL")){
+				int idx = Integer.parseInt(req.getParameter("idx"));
+				bookList.remove(idx);
 			}
 			
-			bookList.add(getBook(req));
+			session.setAttribute("cart", bookList);
+			RequestDispatcher view = 
+					req.getRequestDispatcher("/exam2/bookShop.jsp");
+			view.forward(req, resp);
 		}
-		else if(cmd.equals("CHK")){
-			
-		}
-		
-		session.setAttribute("cart", bookList);
-		RequestDispatcher view = 
-				req.getRequestDispatcher("/exam2/bookShop.jsp");
-		view.forward(req, resp);
 	}
 	
 	public BookDto getBook(HttpServletRequest req){

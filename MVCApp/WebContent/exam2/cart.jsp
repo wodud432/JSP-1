@@ -23,13 +23,20 @@
 		<td><%=dto.getAuthor() %></td>
 		<td><%=dto.getPrice() %></td>
 		<td><%=dto.getQuantity() %></td>
+		<td>
+			<form method="post" action="/MVCApp/cart.action">
+				<input type="hidden" name="command" value="DEL" />
+				<input type="hidden" name="idx" value="<%=i%>" />
+				<input type="submit" value="삭제" />
+			</form>
+		</td>
 	</tr>
 <%
 	}
 %>
 </table>
 <br/>
-<form method="post" action="../cart.action">
+<form method="post" action="/MVCApp/cart.action">
 	<input type="hidden" name="command" value="CHK" />
 	<input type="submit" value="체크 아웃" />
 </form>
